@@ -33,4 +33,4 @@ print(error_integ(resultat, resultat_anal))
 
 evolution_error = evolution_erreur(limite_inf, limite_sup, coef_p1, coef_p2, coef_p3, coef_p4)
 
-print(timeit.timeit(lambda: evolution_erreur(limite_inf, limite_sup, coef_p1, coef_p2, coef_p3, coef_p4), number = 1000))
+print(timeit.timeit(lambda: aire_poly_rect(limite_inf, limite_sup, coef_p1, coef_p2, coef_p3, coef_p4, nb_seg), number = 1))

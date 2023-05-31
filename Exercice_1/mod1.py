@@ -28,7 +28,6 @@ def error_integ(aire_anal, aire_rect):
 
 def evolution_erreur(limite_inf, limite_sup, coef_p1, coef_p2, coef_p3, coef_p4):
     error_integr = []
-    liste_nb_seg = []
 
     for i in range (1, 100):
         nb_seg = i
@@ -36,7 +35,6 @@ def evolution_erreur(limite_inf, limite_sup, coef_p1, coef_p2, coef_p3, coef_p4)
         aire_poly_anal = aire_poly_exacte(limite_inf, limite_sup, coef_p1, coef_p2, coef_p3, coef_p4)
 
         error_integr.append(error_integ(aire_poly_anal, aire_poly_rectangle))
-        liste_nb_seg.append(i)
 
     plt.plot(error_integr)
     plt.show()
