@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6cbdd3d-efb9-4738-aaa3-1bb2716cb7df" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Exercice_1/mod1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Exercice_1/mod1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exercice_1/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Exercice_1/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exercice_2/mod1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Exercice_2/mod1.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,13 +31,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Gabriel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Gabriel&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
