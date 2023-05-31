@@ -17,4 +17,8 @@ def aire_poly_rect(limite_inf, limite_sup, coef_p1, coef_p2, coef_p3, coef_p4, n
     
     return sum_aire_rect
 
-print(aire_poly_rect(-2, 2, 2,3,4,5,100))
+def error_integ(aire_anal, aire_rect):
+    return abs((aire_anal-aire_rect)/aire_anal)*100
+
+print(aire_poly_rect(-2, 2, 2,3,4,5,10))
+print(error_integ(29.12, 29.33))
