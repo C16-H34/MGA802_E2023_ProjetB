@@ -4,10 +4,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # On fixe les paramètres:
-longueur = 50
-hauteur = 50
-nb_segments_x = 100
-nb_segment_y = 100
+longueur = 20
+hauteur = 15
+nb_segments_x = 40
+nb_segment_y = 40
 #xc =
 #yc =
 #diffusivite =
@@ -21,11 +21,17 @@ temperature_atmosphere = 20
 def grille(longueur, hauteur, nb_segments_x, nb_segments_y):   
     x = np.linspace(0,longueur,nb_segments_x + 1)
     y = np.linspace(0,hauteur,nb_segments_y + 1)
-    tableau = np.meshgrid(x,y)
+    xv, yv = np.meshgrid(x,y)
     grid = {}
     grid['X'] = x
     grid['Y'] = y
-    plt.plot(tableau)
+    print(xv)
+    print(yv)
+    print(grid['X'])
+    plt.plot(grid['X'], xv, linestyle='-')
+    #plt.plot(yv, xv, linestyle='-')
+    #plt.plot(y, yv)
+    plt.show()
 
 # Sur la grille de calcul, on trace le contour en couleur pour le champ de température
 #plt.contourf([xc,yc],temperature_initiale)
