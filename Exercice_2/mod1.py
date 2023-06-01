@@ -2,33 +2,40 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from import import import
 
 # On fixe les paramètres:
 longueur = 50
 hauteur = 50
-nb_segments =
-xc =
-yc =
-diffusivite =
-amplitude_point_chaud =
-sigma_point_chaud =
+nb_segments_x = 100
+nb_segment_y = 100
+#xc =
+#yc =
+#diffusivite =
+#amplitude_point_chaud =
+#sigma_point_chaud =
 temperature_atmosphere = 20
-temperature_initiale =
+#temperature_initiale =
 
 # Fonction qui génère une grille de calcul (de forme carrée)
 # On créé un vecteur X
-x = np.linspace(0,l,nb_segments + 1)
-y = x
-tableau = np.meshgrid(x,y)
+def grille(longueur, hauteur, nb_segments_x, nb_segments_y):   
+    x = np.linspace(0,longueur,nb_segments_x + 1)
+    y = np.linspace(0,hauteur,nb_segments_y + 1)
+    tableau = np.meshgrid(x,y)
+    grid = {}
+    grid['X'] = x
+    grid['Y'] = y
+    plt.plot(tableau)
 
 # Sur la grille de calcul, on trace le contour en couleur pour le champ de température
-plt.contourf([xc,yc],temperature_initiale)
+#plt.contourf([xc,yc],temperature_initiale)
 
 def interface():
     params = {}
     params['L'] = 10
     params['H'] = 10
 
-def temperature_pts_chaud(xc,yc,amplitude,ecart):
-    amplitude np.exp(-(()))
+#def temperature_pts_chaud(xc,yc,amplitude,ecart):
+    #amplitude np.exp(-(()))
+
+grille(longueur, hauteur, nb_segments_x, nb_segment_y)
