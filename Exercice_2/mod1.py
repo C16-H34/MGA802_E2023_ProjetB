@@ -40,8 +40,8 @@ def interface():
 
 def solution_initiale(grid, Amplitude, écartement, XC, YC, temperature_atmosphere):
     Temp_init=np.ones((len(grid['X']), len(grid['Y'])))*temperature_atmosphere
-    for index_X in range(len(grid['X'])):
-        for index_Y in range(len(grid['Y'])):
+    for index_X in range(1, len(grid['X'])-1):
+        for index_Y in range(1, len(grid['Y'])-1):
             Temp_init[index_X, index_Y] += Amplitude*np.exp(-(((grid['X'][index_X]-XC)**2)/(2*écartement**2)+((grid['Y'][index_Y]-YC)**2)/(2*écartement**2)))
     print(Temp_init)
 
@@ -56,15 +56,15 @@ def Calcul_RHS(grid, coeff_diffusion, Temp):
     for index_X in range(1, len(grid['X'])-1):
         for index_Y in range(1, len(grid['Y'])-1):
             RHS[index_X, index_Y] = coeff_diffusion*((Temp[index_X+1, index_Y] - 2*Temp[index_X, index_Y] + Temp[index_X-1, index_Y])/(grid['X'][1]**2) + (Temp[index_X, index_Y+1] - 2*Temp[index_X, index_Y] + Temp[index_X, index_Y-1])/(grid['Y'][1]**2))
-    print(RHS)
     return RHS
 
 
 def avancement_temporel(Temp, grid, coeff_diffusion, instant_avancement):
     dt = (0.25 * (grid['X'][1]**2))/coeff_diffusion
-    print(dt)
     global instant 
     instant += dt 
+    print(grid['X'][1])
+    print(dt)
 
     if instant < instant_avancement :
         NewTemp = Temp + dt*Calcul_RHS(grid, coeff_diffusion, Temp)
@@ -80,4 +80,4 @@ Grille=grille(longueur, hauteur, nb_segments_x, nb_segment_y)
 Temp_init = solution_initiale(Grille, amplitude_point_chaud, sigma_point_chaud, XC, YC, temperature_atmosphere)
 #Affichage_temp(Grille, Temp_init)
 #Calcul_RHS(Grille, coeff_diffusion, Temp_init)
-avancement_temporel(Temp_init, Grille, coeff_diffusion, 10)
+avancement_temporel(Temp_init, Grille, coeff_diffusion, 1400)
