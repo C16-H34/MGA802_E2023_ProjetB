@@ -14,23 +14,19 @@ from mod1 import aire_poly_exacte
 from mod1 import evolution_erreur
 
 # Définitions des constantes
-limite_inf = -2
-limite_sup = 2
+limites = [-2, 2]
 # Les coefficients p1, p2 et p3 sont des nombres réels
-coef_p1 = 2
-coef_p2 = 3
-coef_p3 = 4
+coefs = [2, 3, 4, 5]
 # Le coefficient p4 est un nombre réel positif
-coef_p4 = 5
 nb_seg = 100
 
 
-resultat = aire_poly_rect(limite_inf, limite_sup, coef_p1, coef_p2, coef_p3, coef_p4, nb_seg)
-resultat_anal = aire_poly_exacte(limite_inf, limite_sup, coef_p1, coef_p2, coef_p3, coef_p4)
+resultat = aire_poly_rect(limites, coefs, nb_seg)
+resultat_anal = aire_poly_exacte(limites, coefs)
 print(resultat)
 print(resultat_anal)
 print(error_integ(resultat, resultat_anal))
 
-evolution_error = evolution_erreur(limite_inf, limite_sup, coef_p1, coef_p2, coef_p3, coef_p4)
+evolution_error = evolution_erreur(limites, coefs)
 
-print(timeit.timeit(lambda: aire_poly_rect(limite_inf, limite_sup, coef_p1, coef_p2, coef_p3, coef_p4, nb_seg), number = 1))
+print(timeit.timeit(lambda: aire_poly_rect(limites, coefs, nb_seg), number = 1))

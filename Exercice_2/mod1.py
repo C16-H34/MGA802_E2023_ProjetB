@@ -2,33 +2,66 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from import import import
 
 # On fixe les paramètres:
-longueur = 50
-hauteur = 50
-nb_segments =
-xc =
-yc =
-diffusivite =
-amplitude_point_chaud =
-sigma_point_chaud =
+longueur = 20
+hauteur = 15
+nb_segments_x = 45
+nb_segment_y = 65
+XC = 5
+YC = 5
+coeff_diffusion = 0.7
+amplitude_point_chaud = 50
+sigma_point_chaud = 5
 temperature_atmosphere = 20
-temperature_initiale =
 
 # Fonction qui génère une grille de calcul (de forme carrée)
 # On créé un vecteur X
-x = np.linspace(0,l,nb_segments + 1)
-y = x
-tableau = np.meshgrid(x,y)
+def grille(longueur, hauteur, nb_segments_x, nb_segments_y):   
+    x = np.linspace(0,longueur,nb_segments_x + 1)
+    y = np.linspace(0,hauteur,nb_segments_y + 1)
+    xv, yv = np.meshgrid(x,y)
+    grid = {}
+    grid['X'] = x
+    grid['Y'] = y
+    plt.figure()
+    plt.plot(grid['X'], yv.transpose(), linestyle='-', color='grey', linewidth=0.5)
+    plt.plot(xv, grid['Y'], linestyle='-', color='grey', linewidth=0.5)
+    return grid
 
 # Sur la grille de calcul, on trace le contour en couleur pour le champ de température
-plt.contourf([xc,yc],temperature_initiale)
+#plt.contourf([xc,yc],temperature_initiale)
 
 def interface():
     params = {}
     params['L'] = 10
     params['H'] = 10
 
-def temperature_pts_chaud(xc,yc,amplitude,ecart):
-    amplitude np.exp(-(()))
+def solution_initiale(grid, Amplitude, écartement, XC, YC, temperature_atmosphere):
+    Temp_init=np.ones((len(grid['X']), len(grid['Y'])))*temperature_atmosphere
+    for index_X in range(len(grid['X'])):
+        for index_Y in range(len(grid['Y'])):
+            Temp_init[index_X, index_Y] += Amplitude*np.exp(-(((grid['X'][index_X]-XC)**2)/(2*écartement**2)+((grid['Y'][index_Y]-YC)**2)/(2*écartement**2)))
+    print(Temp_init)
+
+    return Temp_init
+
+def Affichage_temp(grid, Temp):
+    plt.contourf(grid['X'], grid['Y'], Temp.transpose())
+    plt.show()
+            
+def Calcul_RHS(grid, coeff_diffusion, Temp):
+    RHS = np.zeros((len(grid['X']), len(grid['Y'])))
+    for index_X in range(1, len(grid['X'])-1):
+        for index_Y in range(1, len(grid['Y'])-1):
+            RHS[index_X, index_Y] = coeff_diffusion*((Temp[index_X+1, index_Y] - 2*Temp[index_X, index_Y] + Temp[index_X-1, index_Y])/(grid['X'][1]**2) + (Temp[index_X, index_Y+1] - 2*Temp[index_X, index_Y] + Temp[index_X, index_Y-1])/(grid['Y'][1]**2))
+    return RHS
+
+
+#def avancement_temporel():
+
+
+Grille=grille(longueur, hauteur, nb_segments_x, nb_segment_y)
+Temp_init = solution_initiale(Grille, amplitude_point_chaud, sigma_point_chaud, XC, YC, temperature_atmosphere)
+Affichage_temp(Grille, Temp_init)
+Calcul_RHS(Grille, coeff_diffusion, Temp_init)
