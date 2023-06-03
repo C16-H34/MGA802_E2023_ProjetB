@@ -2,6 +2,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import time
 
 instant = 0
 min_temp = []
@@ -50,8 +51,8 @@ def Calcul_RHS(grid, coeff_diffusion, Temp):
     return RHS
 
 
-def avancement_temporel(Temp, grid, coeff_diffusion, instant_avancement):
-    dt = (0.25 * (grid['X'][1]**2))/coeff_diffusion
+def avancement_temporel(Temp, grid, coeff_diffusion, instant_avancement, instant_initial):
+    dt = (0.25 * (grid['X'][1])**2)/coeff_diffusion
     global instant 
     global min_temp
     global max_temp
@@ -64,15 +65,17 @@ def avancement_temporel(Temp, grid, coeff_diffusion, instant_avancement):
     
     if instant < instant_avancement :
         enregistrement(Temp, New_Temp)
-        avancement_temporel(New_Temp, grid, coeff_diffusion, instant_avancement)
+        avancement_temporel(New_Temp, grid, coeff_diffusion, instant_avancement, instant_initial)
     else:
+        Temps_calcul = time.perf_counter() - instant_initial
         Affichage_temp(grid, Temp)
+        print(f"\nTemps de Calul = {Temps_calcul}")
         instant = 0
-        print(min_temp)
-        print(max_temp)
-        print(mean_temp)
-        print(Linfini)
-        print(L2)
+        print(f"\nLa température minimale est {min_temp}")
+        print(f"\nLa température maximale est {max_temp}")
+        print(f"\nLa température moyenne est {mean_temp}")
+        print(f"\nLa norme Linfini est {Linfini}")
+        print(f"\nLa norme L2 est {L2}")
         min_temp = []
         max_temp = []
         mean_temp = []
@@ -95,3 +98,19 @@ def enregistrement(Temp, New_Temp):
     Linfini.append(np.max(np.abs(residu[5:40, 6:58])))
     L2.append(np.mean(np.square(residu[5:40, 6:58])))
 
+
+
+def interface_utilisateur():
+    print("BIENVENUE SUR LE PROGRAMME POINT CHAUD \n\nCe programme montre l'évoltion d'un point chaud dans une plaque d'Aluminium supposée infinie dans la direction perpendiculaire au plan de l'ordinateur")
+    longueur = input('Veillez choisir la longueur de la plaque en cm :')
+    hauteur = input('Veillez choisir la hauteur de la plaque en cm :')
+    nb_segment_x = input('Veillez choisir le nombre de segments de mesure suivant la longueur (suivant x) :')
+    nb_segment_y = input('Veillez choisir le nombre de segments de mesure suivant la hauteur (suivant y) :')
+    XC =  input("Veillez choisir l'emplacment du point chaud suivant la longueur (Xpoint_chaud) :")
+    YC =  input("Veillez choisir l'emplacment du point chaud suivant la hauteur (Ypoint_chaud) :")
+    amplitude_point_chaud = input("Veillez choisir l'amplitude du point chaud en °C :")
+    ecartement_point_chaud = input("Veillez choisir l'écartement du point chaud en cm :")
+    temp_atmosphere = input("Veillez choisir la température de l'atmosphere en °C :")
+    probleme = pd.Series([longueur, hauteur, nb_segment_x, nb_segment_y, XC, YC, amplitude_point_chaud, ecartement_point_chaud, temp_atmosphere])
+    probleme.index = ['longueur', 'hauteur', 'nb_segment_x', 'nb_segment_y', 'XC', 'YC', 'amplitude_point_chaud', 'ecartement_point_chaud', 'temp_atmosphere']
+    return(probleme)
