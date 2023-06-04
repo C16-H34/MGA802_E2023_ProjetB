@@ -2,19 +2,14 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import time
 
-# On fixe les paramètres:
-longueur = 20
-hauteur = 15
-nb_segments_x = 45
-nb_segment_y = 65
-XC = 5
-YC = 5
-coeff_diffusion = 0.7
-amplitude_point_chaud = 50
-sigma_point_chaud = 5
-temperature_atmosphere = 20
-
+instant = 0
+min_temp = []
+max_temp = []
+mean_temp = []
+Linfini = []
+L2 = []
 # Fonction qui génère une grille de calcul (de forme carrée)
 # On créé un vecteur X
 def grille(longueur, hauteur, nb_segments_x, nb_segments_y):   
@@ -26,7 +21,7 @@ def grille(longueur, hauteur, nb_segments_x, nb_segments_y):
     grid['Y'] = y
     plt.figure()
     plt.plot(grid['X'], yv.transpose(), linestyle='-', color='grey', linewidth=0.5)
-    plt.plot(xv, grid['Y'], linestyle='-', color='grey', linewidth=0.5)
+    plt.plot(xv, grid['Y'], linestyle='-', color='grey', linewidth=1)
     return grid
 
 # Sur la grille de calcul, on trace le contour en couleur pour le champ de température
@@ -39,11 +34,9 @@ def interface():
 
 def solution_initiale(grid, Amplitude, écartement, XC, YC, temperature_atmosphere):
     Temp_init=np.ones((len(grid['X']), len(grid['Y'])))*temperature_atmosphere
-    for index_X in range(len(grid['X'])):
-        for index_Y in range(len(grid['Y'])):
+    for index_X in range(1, len(grid['X'])-1):
+        for index_Y in range(1, len(grid['Y'])-1):
             Temp_init[index_X, index_Y] += Amplitude*np.exp(-(((grid['X'][index_X]-XC)**2)/(2*écartement**2)+((grid['Y'][index_Y]-YC)**2)/(2*écartement**2)))
-    print(Temp_init)
-
     return Temp_init
 
 def Affichage_temp(grid, Temp):
@@ -58,10 +51,66 @@ def Calcul_RHS(grid, coeff_diffusion, Temp):
     return RHS
 
 
-#def avancement_temporel():
+def avancement_temporel(Temp, grid, coeff_diffusion, instant_avancement, instant_initial):
+    dt = (0.25 * (grid['X'][1])**2)/coeff_diffusion
+    global instant 
+    global min_temp
+    global max_temp
+    global mean_temp
+    global Linfini
+    global L2
+    instant += dt 
+
+    New_Temp = Temp + dt*Calcul_RHS(grid, coeff_diffusion, Temp)
+    
+    if instant < instant_avancement :
+        enregistrement(Temp, New_Temp)
+        avancement_temporel(New_Temp, grid, coeff_diffusion, instant_avancement, instant_initial)
+    else:
+        Temps_calcul = time.perf_counter() - instant_initial
+        Affichage_temp(grid, Temp)
+        print(f"\nTemps de Calul = {Temps_calcul}")
+        instant = 0
+        print(f"\nLa température minimale est {min_temp}")
+        print(f"\nLa température maximale est {max_temp}")
+        print(f"\nLa température moyenne est {mean_temp}")
+        print(f"\nLa norme Linfini est {Linfini}")
+        print(f"\nLa norme L2 est {L2}")
+        min_temp = []
+        max_temp = []
+        mean_temp = []
+        Linfini = []
+        L2 = []
+        return Temp
+    
+def enregistrement(Temp, New_Temp):
+    global min_temp
+    global max_temp
+    global mean_temp
+    global Linfini
+    global L2
+
+    min_temp.append(np.min(New_Temp[5:40, 6:58]))
+    max_temp.append(np.max(New_Temp[5:40, 6:58]))
+    mean_temp.append(np.mean(New_Temp[5:40, 6:58]))
+
+    residu = (New_Temp-Temp)/New_Temp
+    Linfini.append(np.max(np.abs(residu[5:40, 6:58])))
+    L2.append(np.mean(np.square(residu[5:40, 6:58])))
 
 
-Grille=grille(longueur, hauteur, nb_segments_x, nb_segment_y)
-Temp_init = solution_initiale(Grille, amplitude_point_chaud, sigma_point_chaud, XC, YC, temperature_atmosphere)
-Affichage_temp(Grille, Temp_init)
-Calcul_RHS(Grille, coeff_diffusion, Temp_init)
+
+def interface_utilisateur():
+    print("BIENVENUE SUR LE PROGRAMME POINT CHAUD \n\nCe programme montre l'évoltion d'un point chaud dans une plaque d'Aluminium supposée infinie dans la direction perpendiculaire au plan de l'ordinateur")
+    longueur = input('Veillez choisir la longueur de la plaque en cm :')
+    hauteur = input('Veillez choisir la hauteur de la plaque en cm :')
+    nb_segment_x = input('Veillez choisir le nombre de segments de mesure suivant la longueur (suivant x) :')
+    nb_segment_y = input('Veillez choisir le nombre de segments de mesure suivant la hauteur (suivant y) :')
+    XC =  input("Veillez choisir l'emplacment du point chaud suivant la longueur (Xpoint_chaud) :")
+    YC =  input("Veillez choisir l'emplacment du point chaud suivant la hauteur (Ypoint_chaud) :")
+    amplitude_point_chaud = input("Veillez choisir l'amplitude du point chaud en °C :")
+    ecartement_point_chaud = input("Veillez choisir l'écartement du point chaud en cm :")
+    temp_atmosphere = input("Veillez choisir la température de l'atmosphere en °C :")
+    probleme = pd.Series([longueur, hauteur, nb_segment_x, nb_segment_y, XC, YC, amplitude_point_chaud, ecartement_point_chaud, temp_atmosphere])
+    probleme.index = ['longueur', 'hauteur', 'nb_segment_x', 'nb_segment_y', 'XC', 'YC', 'amplitude_point_chaud', 'ecartement_point_chaud', 'temp_atmosphere']
+    return(probleme)
