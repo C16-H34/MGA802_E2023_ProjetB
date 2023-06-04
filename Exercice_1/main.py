@@ -37,7 +37,7 @@ print(f'Avec la méthode exacte, l\'aire sous la courbe est {resultat_methode_ex
 print(f'L\'erreur d\'intégration est de {erreur_integration}')
 
 evolution_error = evolution_erreur(limite_inf, limite_sup, coefs, nb_seg)
-
+ 
 # Évaluation du temps d'exécution du script, avec les fonctions codées en python de base
 # On affiche à l'utilisateur la valeur calculée
 temps_execution_fonctions_base = timeit.timeit(lambda: aire_poly_rect(limite_inf, limite_sup, coefs, nb_seg), number = 1)
