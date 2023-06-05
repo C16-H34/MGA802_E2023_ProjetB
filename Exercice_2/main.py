@@ -37,19 +37,19 @@ Affichage_temp(Grille, Temp_init)
 #Affichage du point chaud après 0.1 secondes à l'aide de la fonction avancement qui utilise la fonction Affichage_temp
 print("\nVOICI LE POINT CHAUD A L'INSTANT 0.1")
 instant_initial = time.perf_counter()
-avancement_temporel(Temp_init, Grille, coeff_diffusion, 0.1, instant_initial)
+avancement_temporel(Temp_init, Grille, coeff_diffusion, 0.5, instant_initial)
 
 #Affichage du point chaud après 0.2 secondes
 print("\nVOICI LE POINT CHAUD A L'INSTANT 0.2")
 instant_initial = time.perf_counter()
-avancement_temporel(Temp_init, Grille, coeff_diffusion, 0.2, instant_initial)
+avancement_temporel(Temp_init, Grille, coeff_diffusion, 1, instant_initial)
 
 #Affichage du point chaud après 0.25 secondes
 print("\nVOICI LE POINT CHAUD A L'INSTANT 0.25")
 instant_initial = time.perf_counter() 
-avancement_temporel(Temp_init, Grille, coeff_diffusion, 0.25, instant_initial)
+avancement_temporel(Temp_init, Grille, coeff_diffusion, 5, instant_initial)
 
 #Affichage du point chaud après 0.28 secondes
-print("\nVOICI LE POINT CHAUD A L'INSTANT o.28")
+print("\nVOICI LE POINT CHAUD A L'INSTANT 0.28")
 instant_initial = time.perf_counter()
-avancement_temporel(Temp_init, Grille, coeff_diffusion, 0.28, instant_initial)
+avancement_temporel(Temp_init, Grille, coeff_diffusion, 30, instant_initial)
