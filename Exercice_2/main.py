@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import time
 
 # On fixe les variables globales qui ne servent que pour le main
-coeff_diffusion = 0.0000988
+coeff_diffusion = 0.988 #en cm^2/s car on travaille en cm dans notre code
 
 #Importation des fonctions du fichier module 1 
 from mod1 import grille
@@ -37,19 +37,19 @@ Affichage_temp(Grille, Temp_init)
 #Affichage du point chaud après 800 secondes à l'aide de la fonction avancement qui utilise la fonction Affichage_temp
 print("\nVOICI LE POINT CHAUD A L'INSTANT 800")
 instant_initial = time.perf_counter()
-avancement_temporel(Temp_init, Grille, coeff_diffusion, 800, instant_initial)
+avancement_temporel(Temp_init, Grille, coeff_diffusion, 0.1, instant_initial)
 
 #Affichage du point chaud après 1600 secondes
 print("\nVOICI LE POINT CHAUD A L'INSTANT 1600")
 instant_initial = time.perf_counter()
-avancement_temporel(Temp_init, Grille, coeff_diffusion, 1600, instant_initial)
+avancement_temporel(Temp_init, Grille, coeff_diffusion, 0.2, instant_initial)
 
 #Affichage du point chaud après 2000 secondes
 print("\nVOICI LE POINT CHAUD A L'INSTANT 2000")
 instant_initial = time.perf_counter()
-avancement_temporel(Temp_init, Grille, coeff_diffusion, 2000, instant_initial)
+avancement_temporel(Temp_init, Grille, coeff_diffusion, 0.25, instant_initial)
 
 #Affichage du point chaud après 3000 secondes
 print("\nVOICI LE POINT CHAUD A L'INSTANT 3000")
 instant_initial = time.perf_counter()
-avancement_temporel(Temp_init, Grille, coeff_diffusion, 3000, instant_initial)
+avancement_temporel(Temp_init, Grille, coeff_diffusion, 0.28, instant_initial)

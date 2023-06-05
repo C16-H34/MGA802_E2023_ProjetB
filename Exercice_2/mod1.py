@@ -81,7 +81,7 @@ def avancement_temporel(Temp, grid, coeff_diffusion, instant_avancement, instant
     else:
         Temps_calcul = time.perf_counter() - instant_initial
         Grille=grille(longueur, hauteur, nb_segment_x, nb_segment_y)
-        plt.title(f"Point chaud à l'instant {instant_avancement}")
+        plt.title(f"Point chaud à l'instant {instant_avancement}s")
         Affichage_temp(grid, Temp)
         print(f"\nTemps de Calul = {Temps_calcul}")
         instant = 0
