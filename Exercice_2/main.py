@@ -34,22 +34,22 @@ Temp_init = solution_initiale(Grille, amplitude_point_chaud, ecartement_point_ch
 Affichage_temp(Grille, Temp_init)
 
 
-#Affichage du point chaud après 800 secondes à l'aide de la fonction avancement qui utilise la fonction Affichage_temp
-print("\nVOICI LE POINT CHAUD A L'INSTANT 800")
+#Affichage du point chaud après 0.1 secondes à l'aide de la fonction avancement qui utilise la fonction Affichage_temp
+print("\nVOICI LE POINT CHAUD A L'INSTANT 0.1")
 instant_initial = time.perf_counter()
 avancement_temporel(Temp_init, Grille, coeff_diffusion, 0.1, instant_initial)
 
-#Affichage du point chaud après 1600 secondes
-print("\nVOICI LE POINT CHAUD A L'INSTANT 1600")
+#Affichage du point chaud après 0.2 secondes
+print("\nVOICI LE POINT CHAUD A L'INSTANT 0.2")
 instant_initial = time.perf_counter()
 avancement_temporel(Temp_init, Grille, coeff_diffusion, 0.2, instant_initial)
 
-#Affichage du point chaud après 2000 secondes
-print("\nVOICI LE POINT CHAUD A L'INSTANT 2000")
-instant_initial = time.perf_counter()
+#Affichage du point chaud après 0.25 secondes
+print("\nVOICI LE POINT CHAUD A L'INSTANT 0.25")
+instant_initial = time.perf_counter() 
 avancement_temporel(Temp_init, Grille, coeff_diffusion, 0.25, instant_initial)
 
-#Affichage du point chaud après 3000 secondes
-print("\nVOICI LE POINT CHAUD A L'INSTANT 3000")
+#Affichage du point chaud après 0.28 secondes
+print("\nVOICI LE POINT CHAUD A L'INSTANT o.28")
 instant_initial = time.perf_counter()
 avancement_temporel(Temp_init, Grille, coeff_diffusion, 0.28, instant_initial)
