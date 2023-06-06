@@ -69,10 +69,10 @@ temps_exec_erreur_integr_np = np_temps_execution(limite_inf, limite_sup, coefs, 
 tableau_erreur_np = np_evolution_erreur(limite_inf, limite_sup, coefs, tableau_np_nb_seg)
 new_tableau_erreur_np = np.delete(tableau_erreur_np,0)
 
-#plt.plot(temps_exec_erreur_integr, erreur_integration, label = "Fonctions Python de base",color='b')
+plt.plot(temps_exec_erreur_integr, convergence_erreur, label = "Fonctions Python de base",color='b')
 plt.plot(temps_exec_erreur_integr_np, new_tableau_erreur_np, label = "Fonction Python avec numpy",color='r')
 plt.title("Erreur d'intégration en fonction du temps d'exécution",loc="center")
 plt.xlabel("Temps d'exécution en secondes")
 plt.ylabel("Erreur d'intégration")
-plt.legend
+plt.legend()
 plt.show()
